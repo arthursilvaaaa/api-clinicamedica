@@ -7,6 +7,7 @@ import lombok.NoArgsConstructor;
 import lombok.Setter;
 
 import java.util.List;
+import java.util.ArrayList;
 
 @Getter
 @Setter
@@ -27,7 +28,7 @@ public class Paciente {
     private String telefone;
 
     @OneToMany(mappedBy = "paciente", cascade = CascadeType.ALL)
-    private List<Consulta> consulta;
+    private List<Consulta> consulta = new ArrayList<>();
 
     public Paciente(long id, String nome) {
         this.id = id;
