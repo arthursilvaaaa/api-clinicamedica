@@ -1,0 +1,35 @@
+services:
+  mysql:
+    image: mysql:8
+    container_name: mysql-clinica
+    environment:
+      MYSQL_ROOT_PASSWORD: root
+      MYSQL_DATABASE: clinicamedica
+    ports:
+      - "3307:3306"
+    networks:
+      - clinica-rede
+    healthcheck:
+      test: ["CMD", "mysqladmin", "ping", "-h", "localhost"]
+      interval: 10s
+      timeout: 5s
+      retries: 5
+
+  api:
+    build: .
+    container_name: api-clinica
+    ports:
+      - "8080:8080"
+    environment:
+      SPRING_DATASOURCE_URL: "jdbc:mysql://mysql:3306/clinicamedica"
+      SPRING_DATASOURCE_USERNAME: root
+      SPRING_DATASOURCE_PASSWORD: root
+    depends_on:
+      mysql:
+        condition: service_healthy
+    networks:
+      - clinica-rede
+
+networks:
+  clinica-rede:
+    driver: bridge

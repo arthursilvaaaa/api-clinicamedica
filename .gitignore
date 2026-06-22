@@ -1,0 +1,19 @@
+# Maven
+target/
+*.jar
+*.war
+
+# IntelliJ
+.idea/
+*.iml
+*.iws
+*.ipr
+
+# Logs
+*.log
+
+# Variáveis de ambiente
+.env
+
+# Mac
+.DS_Store
